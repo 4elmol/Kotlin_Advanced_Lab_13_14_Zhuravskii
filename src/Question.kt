@@ -35,7 +35,11 @@ class Quiz{
             var total: Int = 10
             var answered: Int = 3
         }
+
 }
+    val Quiz.StudentProgress.progressText: String
+        get() = "${answered} of ${total} answered"
+
 data class Question<T>(
     val questionText: String,
     val answer: T,
@@ -50,8 +54,14 @@ object StudentProgress{
     var total: Int = 10
     var answered: Int = 3
 }
-
+fun Quiz.StudentProgress.printProgressBar(){
+    repeat(Quiz.answered) {print("")}
+    repeat(Quiz.total - Quiz.answered) {print(" ")}
+    println()
+    println(Quiz.progressText)
+}
 fun main(){
+    Quiz.printProgressBar()
     val question1 = Question<String>(
         "Речка спятила с ума - По домам пошла сама. ___",
         "водопровод",
@@ -72,4 +82,5 @@ fun main(){
     println(question3.answer)
     println("${StudentProgress.answered} of ${StudentProgress.total} answered.")
     println("${Quiz.answered} of ${Quiz.total} answered.")
+    println(Quiz.progressText)
 }
